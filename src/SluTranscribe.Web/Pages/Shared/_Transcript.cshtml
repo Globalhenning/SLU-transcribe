@@ -2,16 +2,23 @@
 
 @if (Model.Success)
 {
-    <div class="transcript">
-        <label for="transcript-text">Transkription</label>
+    <section class="transcript" aria-labelledby="transcript-heading">
+        <h2 id="transcript-heading">Transkription</h2>
+        <label class="visually-hidden" for="transcript-text">Transkriberad text</label>
         <textarea id="transcript-text" rows="8">@Model.Text</textarea>
-        <button type="button" class="btn"
-                onclick="navigator.clipboard.writeText(document.getElementById('transcript-text').value).then(() => this.textContent = 'Kopierat!')">
-            Kopiera
-        </button>
-    </div>
+        <div class="actions">
+            <button type="button" class="btn btn-primary"
+                    onclick="navigator.clipboard.writeText(document.getElementById('transcript-text').value).then(() => this.textContent = 'Kopierat!')">
+                Kopiera text
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    onclick="document.getElementById('result').replaceChildren()">
+                Rensa
+            </button>
+        </div>
+    </section>
 }
 else
 {
-    <div class="error" role="alert">@Model.Text</div>
+    <div class="alert" role="alert">@Model.Text</div>
 }

@@ -4,15 +4,27 @@
     ViewData["Title"] = "Diktering";
 }
 
-<h1>Diktering</h1>
-<p class="lead">Spela in tal med din mikrofon. När du stoppar skickas ljudet till KB-Whisper (Berget AI) och texten visas nedan.</p>
+<h1>Diktera text</h1>
+<p class="lead">Tala in din text med mikrofonen. Talet omvandlas till text med KB-Whisper, en svensk taligenkänningsmodell.</p>
 
-<section class="recorder">
+<ol class="steps">
+    <li><strong>Spela in</strong> – klicka på knappen och tillåt mikrofonen.</li>
+    <li><strong>Stoppa</strong> – när du är klar skickas ljudet för transkribering.</li>
+    <li><strong>Läs och kopiera</strong> – texten visas nedan och kan redigeras.</li>
+</ol>
+
+<section class="panel recorder" aria-label="Inspelning">
     <button id="record-btn" type="button" class="btn btn-record">
-        <span class="dot"></span><span class="label">Starta inspelning</span>
+        <svg class="mic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z" />
+        </svg>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label">Starta inspelning</span>
     </button>
-    <span id="timer" class="timer">00:00</span>
-    <span id="status" class="status" role="status" aria-live="polite"></span>
+    <div class="recorder__meta">
+        <span id="timer" class="timer" aria-label="Inspelningstid">00:00</span>
+        <span id="status" class="status" role="status" aria-live="polite"></span>
+    </div>
 </section>
 
 <form id="upload-form"
@@ -25,6 +37,8 @@
     <input type="file" name="audio" id="audio-input" />
 </form>
 
-<div id="spinner" class="htmx-indicator spinner">Transkriberar…</div>
+<div id="spinner" class="htmx-indicator spinner" role="status">
+    <span class="spinner__ring" aria-hidden="true"></span> Transkriberar…
+</div>
 
 <div id="result" class="result"></div>

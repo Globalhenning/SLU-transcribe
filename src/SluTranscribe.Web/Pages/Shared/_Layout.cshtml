@@ -1,20 +1,51 @@
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
 @{
     var tokens = Antiforgery.GetAndStoreTokens(Context);
+    var hasLogo = Env.WebRootFileProvider.GetFileInfo("img/slu-logo.svg").Exists;
 }
 <!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Title"] – SLU Transcribe</title>
+    <meta name="theme-color" content="#154734" />
+    <title>@ViewData["Title"] – SLU</title>
+    <link rel="preload" href="~/fonts/roboto-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="~/fonts/merriweather-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
 </head>
 <body hx-headers='{"@tokens.HeaderName": "@tokens.RequestToken"}'>
-    <main class="container">
+    <a class="skip-link" href="#main">Hoppa till innehållet</a>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="brand" href="/">
+                @if (hasLogo)
+                {
+                    <img class="brand__logo" src="~/img/slu-logo.svg" alt="SLU – Sveriges lantbruksuniversitet" />
+                }
+                else
+                {
+                    <span class="brand__mark" aria-hidden="true">SLU</span>
+                    <span class="brand__name">Sveriges lantbruksuniversitet</span>
+                }
+            </a>
+            <span class="site-header__app">Diktering</span>
+        </div>
+    </header>
+
+    <main id="main" class="container">
         @RenderBody()
     </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <p>Transkribering med KB-Whisper via Berget AI. Ljudet sparas inte.</p>
+        </div>
+    </footer>
+
     <script src="~/js/recorder.js" asp-append-version="true"></script>
 </body>
 </html>
