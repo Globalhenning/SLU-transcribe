@@ -6,11 +6,9 @@ using SluTranscribe.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const long maxUploadBytes = 25 * 1024 * 1024;
-
 builder.Services.AddRazorPages();
-builder.Services.Configure<FormOptions>(o => o.MultipartBodyLengthLimit = maxUploadBytes);
-builder.WebHost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = maxUploadBytes);
+builder.Services.Configure<FormOptions>(o => o.MultipartBodyLengthLimit = UploadLimits.MaxUploadBytes);
+builder.WebHost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = UploadLimits.MaxUploadBytes);
 
 builder.Services.AddHealthChecks();
 

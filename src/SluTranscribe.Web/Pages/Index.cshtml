@@ -14,7 +14,9 @@
 </ol>
 
 <section class="panel recorder" aria-label="Inspelning">
-    <button id="record-btn" type="button" class="btn btn-record">
+    <button id="record-btn" type="button" class="btn btn-record"
+            data-max-seconds="@(Model.MaxMinutes * 60)"
+            data-max-bytes="@SluTranscribe.Web.Services.UploadLimits.MaxUploadBytes">
         <svg class="mic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z" />
         </svg>
@@ -22,9 +24,12 @@
         <span class="label">Starta inspelning</span>
     </button>
     <div class="recorder__meta">
-        <span id="timer" class="timer" aria-label="Inspelningstid">00:00</span>
+        <span id="timer" class="timer" aria-label="Inspelningstid">00:00 / @Model.MaxMinutes.ToString("00"):00</span>
         <span id="status" class="status" role="status" aria-live="polite"></span>
     </div>
+    <p class="note">
+        En inspelning kan vara högst @Model.MaxMinutes @(Model.MaxMinutes == 1 ? "minut" : "minuter"). Inspelningen stoppas och skickas automatiskt när tiden är slut.
+    </p>
 </section>
 
 <form id="upload-form"

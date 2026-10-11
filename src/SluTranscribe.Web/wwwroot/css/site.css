@@ -210,7 +210,18 @@ a { color: var(--slu-nature); }
     line-height: 1.1;
 }
 
+.timer.warning { color: var(--slu-radish); }
+
 .status { color: var(--text-muted); font-size: .95rem; min-height: 1.5em; }
+
+.note {
+    flex-basis: 100%;
+    margin: 0;
+    padding-left: .75rem;
+    border-left: 3px solid var(--slu-limeblossom);
+    color: var(--text-muted);
+    font-size: .9rem;
+}
 
 /* Knappar */
 .btn {

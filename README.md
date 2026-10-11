@@ -136,6 +136,7 @@ proxyn eller övervakningen, inte med `HEALTHCHECK` i Dockerfile.
 | `Berget:BaseUrl`   | `https://api.berget.ai/v1/`  | OpenAI-kompatibel bas-URL            |
 | `Berget:Model`     | `KBLab/kb-whisper-large`     | Transkriberingsmodell                |
 | `Berget:Language`  | `sv`                         | Språkhint, tomt = autodetektering    |
+| `Recording:MaxMinutes` | `20`                     | Maxlängd per inspelning i minuter    |
 | `DataProtection:KeysPath` | – (i Docker: `/keys`) | Katalog för antiforgery-nycklar      |
 
 Max uppladdningsstorlek är 25 MB.

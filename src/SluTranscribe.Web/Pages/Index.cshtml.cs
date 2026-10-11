@@ -4,8 +4,13 @@ using SluTranscribe.Web.Services;
 
 namespace SluTranscribe.Web.Pages;
 
-public class IndexModel(BergetTranscriptionClient transcriber, ILogger<IndexModel> logger) : PageModel
+public class IndexModel(
+    BergetTranscriptionClient transcriber,
+    IConfiguration configuration,
+    ILogger<IndexModel> logger) : PageModel
 {
+    public int MaxMinutes { get; } = Math.Max(1, configuration.GetValue("Recording:MaxMinutes", 20));
+
     public void OnGet() { }
 
     public async Task<IActionResult> OnPostTranscribeAsync(IFormFile? audio, CancellationToken ct)
