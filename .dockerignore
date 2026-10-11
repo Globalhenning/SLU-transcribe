@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/*.user
+**/secrets.json
+.git/
+.vs/
+.vscode/
+.idea/
+.env
+Dockerfile*
+compose*.yaml
+docker-compose*.yml
+README.md

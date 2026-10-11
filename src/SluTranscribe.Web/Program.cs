@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using SluTranscribe.Web.Services;
@@ -10,6 +11,16 @@ const long maxUploadBytes = 25 * 1024 * 1024;
 builder.Services.AddRazorPages();
 builder.Services.Configure<FormOptions>(o => o.MultipartBodyLengthLimit = maxUploadBytes);
 builder.WebHost.ConfigureKestrel(o => o.Limits.MaxRequestBodySize = maxUploadBytes);
+
+builder.Services.AddHealthChecks();
+
+// I container: spara antiforgery-nycklar på en volym så att de överlever omstarter.
+if (builder.Configuration["DataProtection:KeysPath"] is { Length: > 0 } keysPath)
+{
+    builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo(keysPath))
+        .SetApplicationName("SluTranscribe");
+}
 
 builder.Services.AddOptions<BergetOptions>()
     .Bind(builder.Configuration.GetSection(BergetOptions.SectionName))
@@ -33,5 +44,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();
+app.MapHealthChecks("/healthz");
 
 app.Run();

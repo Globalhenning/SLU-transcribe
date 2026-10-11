@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    image: slu-transcribe:latest
+    restart: unless-stopped
+    # Bara reverse proxyn på samma värd ska nå containern.
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file: .env
+    volumes:
+      - dp-keys:/keys
+
+volumes:
+  dp-keys:
