@@ -1,0 +1,30 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Diktering";
+}
+
+<h1>Diktering</h1>
+<p class="lead">Spela in tal med din mikrofon. När du stoppar skickas ljudet till KB-Whisper (Berget AI) och texten visas nedan.</p>
+
+<section class="recorder">
+    <button id="record-btn" type="button" class="btn btn-record">
+        <span class="dot"></span><span class="label">Starta inspelning</span>
+    </button>
+    <span id="timer" class="timer">00:00</span>
+    <span id="status" class="status" role="status" aria-live="polite"></span>
+</section>
+
+<form id="upload-form"
+      hx-post="?handler=Transcribe"
+      hx-target="#result"
+      hx-encoding="multipart/form-data"
+      hx-indicator="#spinner"
+      hx-disabled-elt="#record-btn"
+      hidden>
+    <input type="file" name="audio" id="audio-input" />
+</form>
+
+<div id="spinner" class="htmx-indicator spinner">Transkriberar…</div>
+
+<div id="result" class="result"></div>

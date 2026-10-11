@@ -1,0 +1,17 @@
+@model TranscriptResult
+
+@if (Model.Success)
+{
+    <div class="transcript">
+        <label for="transcript-text">Transkription</label>
+        <textarea id="transcript-text" rows="8">@Model.Text</textarea>
+        <button type="button" class="btn"
+                onclick="navigator.clipboard.writeText(document.getElementById('transcript-text').value).then(() => this.textContent = 'Kopierat!')">
+            Kopiera
+        </button>
+    </div>
+}
+else
+{
+    <div class="error" role="alert">@Model.Text</div>
+}

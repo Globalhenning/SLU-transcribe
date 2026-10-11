@@ -1,0 +1,101 @@
+:root {
+    --bg: #f7f7f5;
+    --fg: #1d1d1b;
+    --muted: #6b6b66;
+    --accent: #1f6f43;
+    --danger: #b3261e;
+    --surface: #ffffff;
+    --border: #d9d9d4;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #161615;
+        --fg: #ececea;
+        --muted: #a3a39d;
+        --accent: #4fb07a;
+        --danger: #ef6b62;
+        --surface: #20201f;
+        --border: #3a3a37;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+h1 { margin: 0 0 .25rem; }
+.lead { color: var(--muted); margin-top: 0; }
+
+.recorder {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--fg);
+    font: inherit;
+    cursor: pointer;
+}
+.btn:disabled { opacity: .5; cursor: progress; }
+
+.btn-record { border-color: var(--accent); }
+.btn-record .dot {
+    width: .75rem;
+    height: .75rem;
+    border-radius: 50%;
+    background: var(--danger);
+}
+.btn-record.recording { background: var(--danger); color: #fff; border-color: var(--danger); }
+.btn-record.recording .dot { background: #fff; animation: pulse 1s infinite; }
+
+@keyframes pulse { 50% { opacity: .3; } }
+
+.timer { font-variant-numeric: tabular-nums; color: var(--muted); }
+.status { color: var(--muted); }
+
+.spinner { display: none; color: var(--muted); }
+.spinner.htmx-request { display: block; }
+
+.transcript { display: grid; gap: .5rem; }
+.transcript label { font-weight: 600; }
+.transcript textarea {
+    width: 100%;
+    padding: .75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--fg);
+    font: inherit;
+    resize: vertical;
+}
+.transcript .btn { justify-self: start; }
+
+.error {
+    padding: .75rem 1rem;
+    border-left: 4px solid var(--danger);
+    background: var(--surface);
+    color: var(--danger);
+    border-radius: 4px;
+}
